@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --spider-red: #e23636;
+  --spider-blue: #1a3e6e;
+  --spider-dark: #0a0a0a;
+  --spider-gold: #ffd700;
+  --text-light: #f5f5f5;
+  --overlay-dark: rgba(0, 0, 0, 0.85);
+}
+
+body {
+
+    font-family: 'Bebas Neue', 'Arial Narrow', sans-serif;
+    background: var(--spider-dark);
+    color: var(--text-light);
+    overflow-x: hidden;
+    min-height: 100vh;
+
+}
+
+
+
+
+
+/* ============================================
+   RESPONSIVIDADE
+============================================ */
+@media (max-width: 968px) {
+  .s-wrapper {
+      flex-direction: column;
+  }
+
+  .s-left-column {
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 15px 30px;
+  }
+
+  .navigator {
+      flex-direction: row;
+  }
+
+  .navigator ul {
+      flex-direction: row;
+  }
+
+  .s-main-content {
+      padding: 40px 25px;
+  }
+
+  .s-logo img {
+      max-width: 300px;
+  }
+
+  .s-links ul {
+      flex-direction: column;
+  }
+
+  .link-button {
+      justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery ul {
+      grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pills li {
+      font-size: 0.8rem;
+      padding: 6px 14px;
+  }
+}

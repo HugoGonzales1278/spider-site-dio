@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* ─── Background ─────────────────────────────────────────── */
+
+body {
+  background-color: var(--primary-color);
+}
+
+body::before {
+  content: "";
+  background-image: url('../desafio-dio-spider-man/src/css/assets/imagens/spider-tom/spider-man-background.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.2;
+  pointer-events: none;
+  transition: background-image var(--transition-speed) ease-in-out,
+              opacity var(--transition-speed) ease-in-out;
+  z-index: 0;
+}
+
+/* ─── Navigation ─────────────────────────────────────────── */
+
+.s-menu {
+  padding: 1rem 0;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.s-menu ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.s-menu__item {
+  display: inline-block;
+  text-transform: uppercase;
+  margin: 0 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+}
+
+.s-menu__item a {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.s-menu__item a:hover {
+  opacity: 1;
+}
+
+.s-menu__icon {
+  width: 2.5rem;
+  margin: 0 1.25rem;
+  vertical-align: middle;
+}
+
+.s-menu__icon img {
+  width: 100%;
+  display: block;
+}
+
+/* ─── 3-D Carousel ───────────────────────────────────────── */
+
+.s-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 3000px;
+  height: 80vh;
+  z-index: 1;
+}
+
+.s-cards-carousel {
+  display: flex;
+  justify-content: center;
+  width: calc(100vw / 3 - 10%);
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* ─── Cards ──────────────────────────────────────────────── */
+
+.s-card {
+  border: var(--card-border);
+  width: 100%;
+  height: 70vh;
+  position: absolute;
+  overflow: hidden;
+  transition: filter var(--transition-speed) ease-in-out;
+  display: block;
+}
+
+.s-card:nth-child(1) { transform: rotateY(0deg)   translateZ(50vw); }
+.s-card:nth-child(2) { transform: rotateY(120deg)  translateZ(50vw); }
+.s-card:nth-child(3) { transform: rotateY(240deg)  translateZ(50vw); }
+
+.s-card__background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transition: opacity var(--transition-speed) ease-in-out;
+}
+
+.s-card__image {
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  transition: transform var(--transition-speed) ease-in-out,
+              filter var(--transition-speed) ease-in-out;
+}
+
+.s-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  z-index: 3;
+  padding: 0.5rem 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.5));
+  transition: bottom var(--transition-speed) ease-in-out;
+}
+
+/* ─── Hover Effects ──────────────────────────────────────── */
+
+.s-card--hovered .s-card__background {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.s-card--hovered .s-card__image {
+  transform: scale(1.5);
+  filter: drop-shadow(30px 10px 4px rgba(199, 15, 15, 0.044));
+}
+
+.s-card--hovered .s-card__title {
+  bottom: 90%;
+}
+
+/* ─── Background per hovered spider-man ─────────────────── */
+
+body#spider-man-01-hovered::before { background-image: url('../desafio-dio-spider-man/src/css/assets/imagens/spider-tom/pic-sm-bg-01.jpg'); }
+body#spider-man-02-hovered::before { background-image: url('./src/css/assets/imagens/spider-tom/pic-sm-bg-02.jpg'); }
+body#spider-man-03-hovered::before { background-image: url('./src/css/assets/imagens/spider-tom/pic-sm-bg-03.jpg'); }
+
+body[id^="spider-man-"]::before {
+  opacity: 1;
+}
+
+body[id^="spider-man-"] .s-card:not(.s-card--hovered) {
+  filter: grayscale(100%);
+}
+
+/* ─── Controller ─────────────────────────────────────────── */
+
+.s-controller {
+  position: fixed;
+  bottom: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.s-controller__line {
+  background-color: white;
+  width: 50%;
+  height: 2px;
+  position: absolute;
+}
+
+.s-controller__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid white;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1;
+  transition: transform 0.3s ease-in-out,
+              background-color 0.3s ease-in-out,
+              color 0.3s ease-in-out;
+}
+
+.s-controller__button + .s-controller__button {
+  margin-left: 3.75rem;
+}
+
+.s-controller__button:hover {
+  transform: scale(1.1);
+}
+
+.s-controller__button--active {
+  background-color: white;
+  color: var(--primary-color);
+  border: 0.1875rem solid var(--primary-color);
+  outline: 0.125rem solid white;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+:root {
+  --primary-color: #B9001F;
+  --transition-speed: 0.5s;
+  --card-border: 0.5rem solid white;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+*, *::before, *::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  border: 0;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  vertical-align: baseline;
+}
+  </style>
+  <link rel="stylesheet" href="./assets/css/reset.css">
+  <link rel="stylesheet" href="./assets/css/global.css">
+  <link rel="stylesheet" href="./assets/css/home-page-styles.css">
+  <link rel="stylesheet" href="./src/css/internal.css">
+  <link rel="stylesheet" href="navigator.css">
+  <link rel="stylesheet" href="pills.css">
+  <link rel="stylesheet" href="link-button.css">
+  <link rel="stylesheet" href="./src/css/gallery.css">
+
+  <title>Spider-Man | Multiversos</title>
+</head>
+<body>
+
+  <nav class="s-menu">
+    <ul>
+      <li class="s-menu__item">
+        <a href="./tobey-maguire/spider-man-01.html">Tobey Maguire</a>
+      </li>
+      <li class="s-menu__item s-menu__icon">
+        <img src="./src/css/assets/imagens/spider-tobey/spiderman1.png" alt="Spider-Man Multiverse">
+      </li>
+      <li class="s-menu__item">
+        <a href="./tom-holland/tom1.html">Tom Holland</a>
+      </li>
+      <li class="s-menu__item">
+        <a href="./andrew-garfield/andrew1.html">Andrew Garfield</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="s-container">
+    <div class="s-cards-carousel" style="transform: translateZ(-40vw) rotateY(0deg);">
+
+      <a href="./pages/tobey-maguire/spiderman1.html" class="s-card" id="spider-man-01">
+        <img class="s-card__background" src="./src/css/assets/imagens/spider-tom/pic-sm-bg-01.png" alt="">
+        <img class="s-card__image" src="./src/css/assets/imagens/spider-tom/spider-man-01.png" alt="Tobey Maguire">
+        <h2 class="s-card__title">Tobey Maguire</h2>
+      </a>
+
+      <a href="./pages/tom-holland/spiderman1.html" class="s-card" id="spider-man-02">
+        <img class="s-card__background" src="./src/css/assets/imagens/spider-tom/pic-sm-bg-02.jpg" alt="">
+        <img class="s-card__image" src="./src/css/assets/imagens/spider-tom/spider-man-02.png" alt="Tom Holland">
+        <h2 class="s-card__title">Tom Holland</h2>
+      </a>
+
+      <a href="./pages/andrew-garfield/spiderman1.html" class="s-card" id="spider-man-03">
+        <img class="s-card__background" src="./src/css/assets/imagens/spider-tom/pic-sm-bg-03.jpg" alt="">
+        <img class="s-card__image" src="./src/css/assets/imagens/spider-tom/spider-man-03.png" alt="Andrew Garfield">
+        <h2 class="s-card__title">Andrew Garfield</h2>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="s-controller">
+    <div class="s-controller__line"></div>
+    
+  </div>
+  <div class="s-controller">
+    <div id="1" onclick="selectCarouselItem(this)" class="s-controller__button s-controller__button--active">
+      01
+    </div>
+    <div id="2" onclick="selectCarouselItem(this)" class="s-controller__button">
+      02
+    </div>
+    <div id="3" onclick="selectCarouselItem(this)" class="s-controller__button">
+      03
+    </div>
+    <div class="s-controller__line"></div>
+  </div>  
+</body>
+
+<script src="./javascript/script.js"></script>
+<script src="./javascript/card-hover-animation.js"></script>
+<script src="./javascript/index.js"></script>
+</html>

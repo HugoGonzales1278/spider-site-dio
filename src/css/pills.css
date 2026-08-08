@@ -1,0 +1,52 @@
+
+
+
+
+.pills ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 12px;
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.pills ul li {
+    background: rgba(226, 54, 54, 0.2);
+    border: 1px solid var(--spider-red);
+    color: white;
+    padding: 5px 15px;
+    margin: 0 10px;
+    border-radius: 20px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.70rem;
+    letter-spacing: 1px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    
+
+}
+.pills ul li:first-child{
+  margin-left: 0;
+}
+
+.pills li:hover {
+    background: var(--spider-red);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(226, 54, 54, 0.5);
+}
+
+.s-description__text p {
+    font-family: 'Rajdhani', 'Arial', sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.8;
+    color: #ddd;
+    text-shadow: 1px 1px 4px #000;
+}
+
+.s-description__text strong {
+    color: var(--spider-gold);
+    font-size: 1rem;
+}

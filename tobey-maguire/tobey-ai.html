@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiverso Spider-Man-Tobey</title>
+    <link rel="stylesheet" href="../desafio-dio-spider-man/src/css/internal.css">
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css"
+/>
+<style>
+    /* ============================================
+   RESET E CONFIGURAÇÕES GLOBAIS
+============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --spider-red: #e23636;
+    --spider-blue: #1a3e6e;
+    --spider-dark: #0a0a0a;
+    --spider-gold: #ffd700;
+    --text-light: #f5f5f5;
+    --overlay-dark: rgba(0, 0, 0, 0.85);
+}
+
+body {
+    font-family: 'Bebas Neue', 'Arial Narrow', sans-serif;
+    background: var(--spider-dark);
+    color: var(--text-light);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ============================================
+   WRAPPER E VÍDEO DE FUNDO
+============================================ */
+.s-wrapper {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+}
+
+.s-wrapper video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    filter: brightness(0.4) saturate(1.2);
+}
+
+.s-wrapper::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, 
+        rgba(0,0,0,0.7) 0%, 
+        rgba(226,54,54,0.15) 50%, 
+        rgba(0,0,0,0.9) 100%);
+    z-index: -1;
+}
+
+/* ============================================
+   COLUNA LATERAL - NAVEGAÇÃO
+============================================ */
+.s-left-column {
+    width: 120px;
+    background: var(--overlay-dark);
+    backdrop-filter: blur(10px);
+    border-right: 2px solid var(--spider-red);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    position: relative;
+    z-index: 10;
+}
+
+.navigator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    height: 100%;
+}
+
+.navigator__icon img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid var(--spider-red);
+    object-fit: cover;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 20px rgba(226, 54, 54, 0.5);
+}
+
+.navigator__icon img:hover {
+    transform: scale(1.15) rotate(10deg);
+    box-shadow: 0 0 35px rgba(226, 54, 54, 0.9);
+}
+
+.navigator ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.navigator ul li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.navigator ul li a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--spider-red);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.navigator ul li a:hover::before,
+.navigator ul li a.active::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.navigator ul li a:hover,
+.navigator ul li a.active {
+    border-color: var(--spider-gold);
+    box-shadow: 0 0 15px rgba(226, 54, 54, 0.6);
+}
+
+/* ============================================
+   CONTEÚDO PRINCIPAL
+============================================ */
+.s-main-content {
+    flex: 1;
+    padding: 60px 80px;
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.s-main-content__top {
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   LOGO
+============================================ */
+.s-logo {
+    margin-bottom: 30px;
+}
+
+.s-logo img {
+    max-width: 500px;
+    width: 100%;
+    filter: drop-shadow(0 10px 30px rgba(226, 54, 54, 0.6));
+    animation: logoGlow 3s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+    0%, 100% {
+        filter: drop-shadow(0 10px 30px rgba(226, 54, 54, 0.6));
+    }
+    50% {
+        filter: drop-shadow(0 10px 45px rgba(226, 54, 54, 0.9));
+    }
+}
+
+/* ============================================
+   DESCRIÇÃO E PILLS
+============================================ */
+.s-description {
+    max-width: 700px;
+}
+
+.pills ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.pills li {
+    background: rgba(226, 54, 54, 0.2);
+    border: 1px solid var(--spider-red);
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.pills li:hover {
+    background: var(--spider-red);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(226, 54, 54, 0.5);
+}
+
+.s-description__text p {
+    font-family: 'Rajdhani', 'Arial', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ddd;
+    text-shadow: 1px 1px 4px #000;
+}
+
+.s-description__text strong {
+    color: var(--spider-gold);
+    font-size: 1.2rem;
+}
+
+/* ============================================
+   BOTÕES DE LINKS (TRAILER/VÍDEO)
+============================================ */
+.s-links {
+    margin-top: 35px;
+}
+
+.s-links ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.link-button {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: linear-gradient(135deg, var(--spider-red), #b91f1f);
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 25px rgba(226, 54, 54, 0.4);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.link-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.link-button:hover::before {
+    left: 100%;
+}
+
+.link-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(226, 54, 54, 0.6);
+    border-color: var(--spider-gold);
+}
+
+.link-button:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+.play-icon {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 16px;
+    border-color: transparent transparent transparent white;
+    transition: all 0.3s ease;
+}
+
+.link-button:hover .play-icon {
+    border-color: transparent transparent transparent var(--spider-gold);
+}
+
+/* Botão secundário (para múltiplos links) */
+.link-button.secondary {
+    background: transparent;
+    border: 2px solid var(--spider-red);
+    box-shadow: none;
+}
+
+.link-button.secondary:hover {
+    background: rgba(226, 54, 54, 0.2);
+}
+
+/* ============================================
+   GALERIA DE IMAGENS
+============================================ */
+.s-main-content__bottom {
+    margin-top: 50px;
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+}
+
+.gallery ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 800px;
+}
+
+.gallery li a {
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s ease;
+}
+
+.gallery li a::after {
+    content: '🔍';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    background: rgba(226, 54, 54, 0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery li a:hover::after {
+    opacity: 1;
+}
+
+.gallery img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gallery li a:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(226, 54, 54, 0.4);
+}
+
+.gallery li a:hover img {
+    transform: scale(1.15);
+}
+
+/* ============================================
+   RESPONSIVIDADE
+============================================ */
+@media (max-width: 968px) {
+    .s-wrapper {
+        flex-direction: column;
+    }
+
+    .s-left-column {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 15px 30px;
+    }
+
+    .navigator {
+        flex-direction: row;
+    }
+
+    .navigator ul {
+        flex-direction: row;
+    }
+
+    .s-main-content {
+        padding: 40px 25px;
+    }
+
+    .s-logo img {
+        max-width: 300px;
+    }
+
+    .s-links ul {
+        flex-direction: column;
+    }
+
+    .link-button {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pills li {
+        font-size: 0.8rem;
+        padding: 6px 14px;
+    }
+}
+</style>
+</head>
+<body>
+    <div class="s-wrapper">
+        <video autoplay loop muted>
+            <source src="./src/css/assets/videos/spiderman-2002-trailer.mp4" type="video/mp4">
+        </video>
+        <div class="s-left-column">
+            
+            <nav class="navigator">
+                <div class="navigator__icon">
+                    <a href="../desafio-dio-spider-man/index.html">
+                        <img src="../desafio-dio-spider-man/src/css/assets/imagens/spider-tobey/spiderman1.png" alt="">
+                    </a>
+                </div>
+                <ul>
+                    <li><a href="01">01</a></li>
+                    <li><a href="01">02</a></li>
+                    <li><a href="01">03</a></li>
+                </ul>
+            </nav>
+
+        </div>
+        <div class="s-main-content ">
+            <div class="s-main-content__top">
+                <div class="s-logo">
+                    <img src="../desafio-dio-spider-man/src/css/assets/imagens/spider-tobey/filme01/logo.png" alt="spider-man-2002" title="Spiderman(2002)">
+                </div>
+                <div class="s-description">
+                    <div class="pills">
+                        <ul>
+                            <li>Ano:2002</li>
+                            <li>Diretor: Sam Raimi</li>
+                            <li>teste</li>
+                            <li>Tobey Maguire</li>
+                        </ul>
+                    </div>
+                    <div class="s-description__text">
+                        <p><strong>Sinopse:</strong> O filme Homem-Aranha (2002), dirigido por Sam Raimi, acompanha o jovem tímido e nerd Peter Parker. Após ser picado por uma aranha geneticamente modificada em uma excursão escolar, ele ganha superpoderes. Quando uma tragédia pessoal o atinge, ele usa suas habilidades para combater o crime e o vilão Duende Verde.</p>
+                    </div>
+                </div>
+                <div class="s-links">
+                    <ul>
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=t06RUxPbp_c" class="link-button" target="_blank">
+                                <span class="icon">
+                                    <div class="play-icon">
+                                        &nbsp;
+                                    </div>
+                                </span>
+                                <span class="label">
+                                    Assistir trailer
+                                </span>
+                            </a>
+                           
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="s-main-content__bottom">
+                <div class="gallery">
+                    <ul>
+                        <li>
+                            <a data-fancybox href="../desafio-dio-spider-man/src/css/assets/imagens/spider-tobey/filme01/image-01-full.jpg">
+                            <img src="../desafio-dio-spider-man/src/css/assets/imagens/spider-tobey/filme01/image-01 (2).png" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a data-fancybox href="../desafio-dio-spider-man/src/css/assets/imagens/spider-tobey/filme01/image-02-full.jpg">
+                            <img src="../desafio-dio-spider-man/src/css/assets/imagens/spider-tobey/filme01/image-02 (2).png" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a data-fancybox href="./src/css/assets/imagens/spider-tobey/filme01/image-03-full.jpg">
+                            <img src="../desafio-dio-spider-man/src/css/assets/imagens/spider-tobey/filme01/image-03 (2).png" alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js"></script>
+<script>
+    // JavaScript will go here
+    
+// ============================================
+// SPIDER-MAN MULTIVERSO - JAVASCRIPT
+// ============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    initFancybox();
+    initNavigation();
+    initVideoLinks();
+    initScrollAnimations();
+    initVideoBackground();
+});
+
+// ============================================
+// INICIALIZAR FANCYBOX (GALERIA)
+// ============================================
+function initFancybox() {
+    if (typeof Fancybox !== 'undefined') {
+        Fancybox.bind('[data-fancybox]', {
+            Toolbar: {
+                display: {
+                    left: ['infobar'],
+                    middle: ['zoomIn', 'zoomOut', 'toggle1to1', 'rotateCCW', 'rotateCW'],
+                    right: ['slideshow', 'thumbs', 'close'],
+                },
+            },
+            Thumbs: {
+                showOnStart: true,
+            },
+            animated: true,
+            dragToClose: true,
+        });
+        console.log('✅ Fancybox inicializado com sucesso!');
+    } else {
+        console.warn('⚠️ Fancybox não encontrado. Verifique o carregamento do script.');
+    }
+}
+
+// ============================================
+// NAVEGAÇÃO ENTRE FILMES
+// ============================================
+function initNavigation() {
+    const navLinks = document.querySelectorAll('.navigator ul li a');
+    
+    navLinks.forEach((link, index) => {
+        link.addEventListener('click', (e) => {
+            // Remove active de todos
+            navLinks.forEach(l => l.classList.remove('active'));
+            // Adiciona active no clicado
+            link.classList.add('active');
+        });
+    });
+
+    // Marcar página atual como ativa (baseado na URL)
+    const currentPage = window.location.pathname.split('/').pop();
+    navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+        }
+    });
+}
+
+// ============================================
+// SISTEMA DE LINKS DE VÍDEO (TRAILER)
+// ============================================
+
+/**
+ * Configuração de vídeos por filme
+ * Adicione mais entradas conforme necessário
+ */
+const movieVideos = {
+    'spiderman-2002': {
+        trailer: 'https://www.youtube.com/watch?v=t06RUxPbp_c',
+        title: 'Homem-Aranha (2002) - Trailer Oficial'
+    },
+    'spiderman-2004': {
+        trailer: 'https://www.youtube.com/watch?v=W_2zVnszykE',
+        title: 'Homem-Aranha 2 (2004) - Trailer Oficial'
+    },
+    'spiderman-2007': {
+        trailer: 'https://www.youtube.com/watch?v=w2Yr9adTv6Y',
+        title: 'Homem-Aranha 3 (2007) - Trailer Oficial'
+    }
+};
+
+function initVideoLinks() {
+    const linkButtons = document.querySelectorAll('.link-button');
+
+    linkButtons.forEach(button => {
+        // Adiciona efeito de clique com feedback visual
+        button.addEventListener('click', (e) => {
+            const href = button.getAttribute('href');
+            
+            if (href && href.includes('youtube.com')) {
+                console.log(`🎬 Abrindo trailer: ${href}`);
+                
+                // Efeito visual de clique
+                button.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    button.style.transform = '';
+                }, 150);
+
+                // Analytics/tracking (opcional)
+                trackVideoClick(button);
+            }
+        });
+
+        // Adiciona tooltip com preview (opcional)
+        button.addEventListener('mouseenter', () => {
+            showVideoTooltip(button);
+        });
+
+        button.addEventListener('mouseleave', () => {
+            hideVideoTooltip();
+        });
+    });
+}
+
+// ============================================
+// TRACKING DE CLIQUES EM VÍDEO (Analytics)
+// ============================================
+function trackVideoClick(button) {
+    const label = button.querySelector('.label')?.textContent || 'Vídeo';
+    console.log(`📊 Analytics: Clique registrado em "${label}"`);
+    
+    // Aqui você poderia integrar com Google Analytics, etc:
+    // gtag('event', 'video_click', { 'video_name': label });
+}
+
+// ============================================
+// TOOLTIP DE PREVIEW DE VÍDEO
+// ============================================
+function showVideoTooltip(button) {
+    const existingTooltip = document.querySelector('.video-tooltip');
+    if (existingTooltip) existingTooltip.remove();
+
+    const tooltip = document.createElement('div');
+    tooltip.className = 'video-tooltip';
+    tooltip.textContent = '▶ Clique para assistir no YouTube';
+    tooltip.style.cssText = `
+        position: absolute;
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        pointer-events: none;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border: 1px solid #e23636;
+    `;
+
+    document.body.appendChild(tooltip);
+
+    const rect = button.getBoundingClientRect();
+    tooltip.style.left = `${rect.left + rect.width / 2 - tooltip.offsetWidth / 2}px`;
+    tooltip.style.top = `${rect.top - 45}px`;
+
+    requestAnimationFrame(() => {
+        tooltip.style.opacity = '1';
+    });
+}
+
+function hideVideoTooltip() {
+    const tooltip = document.querySelector('.video-tooltip');
+    if (tooltip) {
+        tooltip.style.opacity = '0';
+        setTimeout(() => tooltip.remove(), 300);
+    }
+}
+
+// ============================================
+// ANIMAÇÕES AO SCROLL
+// ============================================
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.gallery li').forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(30px)';
+        item.style.transition = `all 0.6s ease ${index * 0.1}s`;
+        observer.observe(item);
+    });
+}
+
+// ============================================
+// CONTROLE DO VÍDEO DE FUNDO
+// ============================================
+function initVideoBackground() {
+    const bgVideo = document.querySelector('.s-wrapper video');
+    
+    if (bgVideo) {
+        // Garantir que o vídeo toca automaticamente
+        bgVideo.play().catch(err => {
+            console.warn('⚠️ Autoplay bloqueado pelo navegador:', err);
+            // Adicionar botão de play manual se necessário
+            addPlayButton(bgVideo);
+        });
+
+        // Pausar vídeo quando a aba não está visível (economia de recursos)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                bgVideo.pause();
+            } else {
+                bgVideo.play().catch(() => {});
+            }
+        });
+    }
+}
+
+function addPlayButton(video) {
+    const playBtn = document.createElement('button');
+    playBtn.textContent = '▶ Ativar vídeo de fundo';
+    playBtn.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #e23636;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        z-index: 100;
+        font-size: 0.9rem;
+        box-shadow: 0 5px 15px rgba(226, 54, 54, 0.5);
+    `;
+    
+    playBtn.addEventListener('click', () => {
+        video.play();
+        playBtn.remove();
+    });
+
+    document.body.appendChild(playBtn);
+}
+
+// ============================================
+// FUNÇÃO PARA ADICIONAR NOVOS BOTÕES DE VÍDEO DINAMICAMENTE
+// ============================================
+function createVideoButton(url, label, container) {
+    const li = document.createElement('li');
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.className = 'link-button';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    
+    link.innerHTML = `
+        <span class="icon">
+            <div class="play-icon"></div>
+        </span>
+        <span class="label">${label}</span>
+    `;
+    
+    li.appendChild(link);
+    container.appendChild(li);
+    
+    // Re-inicializar eventos para o novo botão
+    initVideoLinks();
+    
+    return li;
+}
+
+// Exemplo de uso (adicionar mais botões dinamicamente):
+// const linksContainer = document.querySelector('.s-links ul');
+// createVideoButton('https://youtube.com/watch?v=XXXXX', 'Ver Cena Extra', linksContainer);
+
+console.log('🕷️ Spider-Man Multiverso - Sistema carregado com sucesso!');
+</script>
+</html>
+

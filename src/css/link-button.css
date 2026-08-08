@@ -1,0 +1,98 @@
+.s-links {
+  margin-top: 35px;
+}
+
+.s-links ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.link-button {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: linear-gradient(135deg, var(--spider-red), #b91f1f);
+  color: white;
+  text-decoration: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 8px 25px rgba(226, 54, 54, 0.4);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+}
+
+.link-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.link-button:hover::before {
+  left: 100%;
+}
+
+.link-button:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(226, 54, 54, 0.6);
+  border-color: var(--spider-gold);
+}
+
+.link-button:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+.play-icon {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 16px;
+  border-color: transparent transparent transparent white;
+  transition: all 0.3s ease;
+}
+
+.link-button:hover .play-icon {
+  border-color: transparent transparent transparent var(--spider-gold);
+}
+a.link-button .icon .play-icon{
+  border: solid 7px white;
+  width: 0px;
+  height: 0px;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  border-left-color: solid -7px red;
+}
+/* Botão secundário (para múltiplos links) */
+.link-button.secondary {
+  background: transparent;
+  border: 2px solid var(--spider-red);
+  box-shadow: none;
+}
+
+.link-button.secondary:hover {
+  background: rgba(226, 54, 54, 0.2);
+}
+
+.box{
+  margin: 0 auto;
+  width: 0px;
+  height: 0px;
+  background-color: red;
+  border-top: solid 20px transparent;
+  border-bottom: solid 20px transparent;
+  border-left: solid 20px purple;
+  border-right: solid 20px transparent;
+}

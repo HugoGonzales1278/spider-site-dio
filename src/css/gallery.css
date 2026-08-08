@@ -1,0 +1,147 @@
+/*.gallery {
+    padding: 20px;
+    padding-left: 0;
+  }
+  
+  .gallery ul{
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .gallery ul li{
+    margin-left: 25px;
+    width: 200px;
+    height: 200px;
+  }
+  
+  .gallery ul li:first-child{
+    margin-left: 0px;
+  }
+  
+  .gallery ul li a img{
+    border:solid 6px white;
+    border-radius: 15px;
+    
+  }
+*/
+
+  .s-main-content__bottom {
+    margin-top: 50px;
+    animation: fadeInUp 1s ease-out 0.3s backwards;
+}
+
+.gallery ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 800px;
+}
+
+.gallery li a {
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s ease;
+}
+
+.gallery li a::after {
+    content: '🔍';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    background: rgba(226, 54, 54, 0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery li a:hover::after {
+    opacity: 1;
+}
+
+.gallery img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gallery li a:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(226, 54, 54, 0.4);
+}
+
+.gallery li a:hover img {
+    transform: scale(1.15);
+}
+
+
+
+
+
+  /* ============================================
+   GALERIA DE IMAGENS
+============================================ */
+/*
+.s-main-content__bottom {
+  margin-top: 50px;
+  animation: fadeInUp 1s ease-out 0.3s backwards;
+}
+
+.gallery ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 800px;
+}
+
+.gallery li a {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s ease;
+}
+
+.gallery li a::after {
+  content: '🔍';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  background: rgba(226, 54, 54, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery li a:hover::after {
+  opacity: 1;
+}
+
+.gallery img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.gallery li a:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(226, 54, 54, 0.4);
+}
+
+.gallery li a:hover img {
+  transform: scale(1.15);
+}
+*/
